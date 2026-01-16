@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Login & Signup Form </title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="title-text">
+        <div class="title login">Login Form</div>
+        <div class="title signup">Signup Form</div>
+      </div>
+      <div class="form-container">
+        <div class="slide-controls">
+          <input type="radio" name="slide" id="login" checked>
+          <input type="radio" name="slide" id="signup">
+          <label for="login" class="slide login">Login</label>
+          <label for="signup" class="slide signup">Signup</label>
+          <div class="slider-tab"></div>
+        </div>
+        <div class="form-inner">
+          <form action="#" class="login">
+            <div class="field">
+              <input type="text" id="loginEmail" placeholder="Email Address" required>
+
+            </div>
+            <div class="field">
+              <input type="password" placeholder="Password" required>
+            </div>
+            <div class="pass-link"><a href="#">Forgot password?</a></div>
+            <div class="field btn">
+              <div class="btn-layer"></div>
+              <input type="submit" value="Login">
+            </div>
+            <div class="signup-link">Not a member? <a href="">Signup now</a></div>
+          </form>
+          <form action="#" class="signup">
+  <div class="field">
+    <input type="text" id="fullName" placeholder="Full Name" required>
+  </div>
+  <div class="field">
+    <input type="text" id="address" placeholder="Address" required>
+  </div>
+  <div class="field">
+    <input type="number" id="contact" placeholder="Contact" required>
+  </div>
+  <div class="field">
+    <input type="number" id="age" placeholder="Age" required>
+  </div>
+  <div class="field">
+    <input type="number" id="pincode" placeholder="PinCode" required>
+  </div>
+  <div class="field">
+    <input type="text" id="signupEmail" placeholder="Email Address" required>
+  </div>
+  <div class="field">
+    <input type="password" id="password" placeholder="Password" required>
+  </div>
+  <div class="field">
+    <input type="password" id="confirmPassword" placeholder="Confirm password" required>
+  </div>
+  <div class="field btn">
+    <div class="btn-layer"></div>
+    <input type="submit" value="Signup">
+  </div>
+</form>
+
+        </div>
+      </div>
+    </div>
+
+    <script>
+  const loginText = document.querySelector(".title-text .login");
+  const loginForm = document.querySelector("form.login");
+  const signupForm = document.querySelector("form.signup");
+
+  const loginRadio = document.getElementById("login");
+  const signupRadio = document.getElementById("signup");
+
+  const loginEmail = document.getElementById("loginEmail");
+  const signupEmail = document.getElementById("signupEmail");
+
+  // Switch manually when clicking labels
+  document.querySelector("label.signup").onclick = () => {
+    signupRadio.checked = true;
+    loginForm.style.marginLeft = "-50%";
+    loginText.style.marginLeft = "-50%";
+  };
+
+  document.querySelector("label.login").onclick = () => {
+    loginRadio.checked = true;
+    loginForm.style.marginLeft = "0%";
+    loginText.style.marginLeft = "0%";
+  };
+
+  // Signup validation + AUTO JUMP
+  signupForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const fullName = document.getElementById("fullName").value.trim();
+    const address = document.getElementById("address").value.trim();
+    const contact = document.getElementById("contact").value.trim();
+    const age = document.getElementById("age").value.trim();
+    const pincode = document.getElementById("pincode").value.trim();
+    const email = signupEmail.value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    if (!fullName || !address || !contact || !age || !pincode || !email || !password || !confirmPassword) {
+      alert("All fields are required!");
+      return;
+    }
+
+    if (contact.length !== 10) {
+      alert("Contact must be 10 digits");
+      return;
+    }
+
+    if (age < 18) {
+      alert("Age must be 18 or above");
+      return;
+    }
+
+    if (pincode.length !== 6) {
+      alert("Pincode must be 6 digits");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    // ✅ SUCCESS
+    alert("Registration completed successfully!");
+
+    // Auto-fill email in login
+    loginEmail.value = email;
+
+    // ✅ FORCE LOGIN VIEW (THIS WORKS)
+    loginRadio.checked = true;
+    loginForm.style.marginLeft = "0%";
+    loginText.style.marginLeft = "0%";
+
+    signupForm.reset();
+  });
+
+  // ✅ LOGIN SUBMIT POPUP + RESET
+  loginForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    // basic check (optional)
+    const email = loginEmail.value.trim();
+    const password = loginForm.querySelector('input[type="password"]').value.trim();
+
+    if (!email || !password) {
+      alert("Please enter email and password");
+      return;
+    }
+
+    // ✅ SUCCESS POPUP
+    alert("Login successful!");
+
+    // ✅ RESET LOGIN FORM
+    loginForm.reset();
+  });
+</script>
+
+
+
+
+  </body>
+</html>
